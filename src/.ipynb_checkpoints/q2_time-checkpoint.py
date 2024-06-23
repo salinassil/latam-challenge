@@ -21,10 +21,11 @@ def q2_time(file_path: str) -> List[Tuple[str, int]]:
     emoji_counter = Counter()
     
     for tweet in tweets:
-      
+        try:
             emojis = emoji_pattern.findall(tweet['content'])
             emoji_counter.update(emojis)
-       
+        except (json.JSONDecodeError, KeyError, TypeError) as e:
+            continue  # Salta líneas malformadas o con claves faltant
     
     
     return emoji_counter.most_common(10)

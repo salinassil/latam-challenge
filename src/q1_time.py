@@ -12,13 +12,12 @@ def q1_time(file_path: str) -> List[Tuple[datetime.date, str]]:
     date_user_counter = Counter()
     
     for tweet in tweets:
-      
+        try:
             date = datetime.fromisoformat(tweet['date']).date()
             user = tweet['user']['username']
             date_user_counter[(date, user)] += 1
-       
-    
-    
+        except (json.JSONDecodeError, KeyError, TypeError) as e:
+            continue  # Salta líneas malformadas o con claves faltant
     
     date_counter = Counter()
     for (date, user), count in date_user_counter.items():

@@ -18,11 +18,12 @@ def q2_memory(file_path: str) -> List[Tuple[str, int]]:
     
     with open(file_path, 'r') as f:
         for line in f:
-         
+            try:
                 tweet = json.loads(line)
                 emojis = emoji_pattern.findall(tweet['content'])
                 emoji_counter.update(emojis)
-            
+            except (json.JSONDecodeError, KeyError, TypeError) as e:
+                continue  # Salta líneas malformadas o con claves faltant
     
     
     return emoji_counter.most_common(10)
