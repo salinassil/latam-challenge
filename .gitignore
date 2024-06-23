@@ -2,3 +2,7 @@
 .DS_Store
 __pycache__/
 *.py[cod]
+# Ignorar otros archivos temporales o no necesarios
+*.log
+*.tmp
+*.swp
